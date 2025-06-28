@@ -23,3 +23,7 @@ UsageMsg:
 	syscall
 	EXIT	$0
 
+.globl OverFlow
+OverFlow:
+	EXIT	$1
+
