@@ -21,10 +21,11 @@
 	xorq	%rbx, %rbx
 	movl	\reps, (%rax)
 	movl	(.numberline), %ebx
-	movl	%rbx, 4(%rax)
+	movl	%ebx, 4(%rax)
 	movl	(.offset), %ebx
-	movl	%rbx, 8(%rax)
+	movl	%ebx, 8(%rax)
 	movq	%r8, 12(%rax)
+	incq	%r9
 	movq	%rax, %r10
 .endm
 
@@ -43,6 +44,8 @@ _start:
 	xorq	%r10, %r10
 .loop:
 	movzbl	(%r8), %edi
+	cmpb	$0, %dil
+	je	.fini
 	cmpb	$'+', %dil
 	je	.acumu
 	cmpb	$'-', %dil
@@ -63,18 +66,26 @@ _start:
 	je	.newline
 	jmp	.resume
 .acumu:
-	SETOK
-	
-
+	cmpq	$0, %r9
+	jne	.acu_may
+	SETOK	$1
+	jmp	.resume
+.acu_may:
+	movq	12(%r10), %rax
+	movzbl	(%rax), %eax
+	cmpb	%dil, %al
+	je	.acu_is
+	SETOK	$1
+	jmp	.resume
+.acu_is:
+	incl	0(%r10)
+	jmp	.resume
 .left_one:
-	SETOK
+
 
 .right_one:
-	SETOK
 
-.token_stored:
-	incq	%r9
-	jmp	.resume
+.ok_token:
 
 .newline:
 	incl	(.numberline)
@@ -87,8 +98,8 @@ _start:
 	jmp	.loop
 
 .fini:
-	movq	$60, %rax
-	movq	$0, %rdi
+	movl	$60, %eax
+	movl	0(%r10), %edi
 	syscall
 
 .e_usage:
