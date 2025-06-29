@@ -2,7 +2,8 @@
 	Program's usage                      [x]
 	Accumulative tokens                  [x]
 	Loop matching                        [x]
-	Error handling                       [x]
+	Error handling during lexer          [x]
+	Error handling post lexer            [x]
 	Interpreter                          [ ]
 	Testing                              [ ]
 

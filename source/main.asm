@@ -110,6 +110,7 @@ _start:
 	incq	%r8
 	jmp	.loop
 .fini:
+	call	ErrCheckLoops
 	call	Int
 	movq	$60, %rax
 	movq	$0, %rdi

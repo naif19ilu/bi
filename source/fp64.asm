@@ -417,3 +417,4 @@ fp64:
 # example: A string is more than 2048 bytes long
 .fatal_2:
 	ABORT	.f2_msg(%rip), .f2_len(%rip), $-2
+
