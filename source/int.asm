@@ -21,10 +21,6 @@
 	.globl __streamcap
 	.globl __stackcap
 
-
-	# NOTE: REMOVE
-	.fmt: .string "%c %d\n"
-
 .section .text
 
 .globl Int
@@ -48,17 +44,6 @@ Int:
 	leaq	__tokstream(%rip), %rax
 	addq	%rbx, %rax
 
-	movq	$1, %rdi
-	leaq	.fmt(%rip), %rsi
-
-	movq	(%rax), %rdx
-	movzbl	(%rdx), %edx
-
-
-	xorq	%rcx, %rcx
-	movl	8(%rax), %ecx
-
-	call	fp64
 
 	jmp	.int_resume
 .int_resume:

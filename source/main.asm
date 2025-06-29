@@ -62,6 +62,8 @@ _start:
 	je	.opening
 	cmpb	$']', %dil
 	je	.closing
+	cmpb	$'\n', %dil
+	je	.newline
 	# anything else shall be taken
 	# as a comment
 	jmp	.resume
@@ -98,7 +100,13 @@ _start:
 	movl	%r9d, 8(%r12)
 	SETUP	%r13d
 	jmp	.resume
+.newline:
+	incl	(__numline)
+	movl	$0, (__offset)
+	incq	%r8
+	jmp	.loop
 .resume:
+	incl	(__offset)
 	incq	%r8
 	jmp	.loop
 .fini:

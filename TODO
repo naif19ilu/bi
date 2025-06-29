@@ -2,7 +2,7 @@
 	Program's usage                      [x]
 	Accumulative tokens                  [x]
 	Loop matching                        [x]
-	Error handling                       [ ]
+	Error handling                       [x]
 	Interpreter                          [ ]
 	Testing                              [ ]
 
