@@ -1,10 +1,8 @@
 
 	Program's usage                      [x]
 	Accumulative tokens                  [x]
-	Loop matching                        [ ]
-	Token overflow                       [ ]
-	Loops overflow                       [ ]
-	Error handing                        [ ]
+	Loop matching                        [x]
+	Error handling                       [ ]
 	Interpreter                          [ ]
 	Testing                              [ ]
 

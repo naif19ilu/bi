@@ -22,3 +22,12 @@ ErrUsage:
 .globl ErrOverFlow
 ErrOverFlow:
 	EXIT	$1
+
+.globl ErrMaxNested
+ErrMaxNested:
+	EXIT	$2
+
+.globl ErrNoOpened
+ErrNoOpened:
+	EXIT	$3
+

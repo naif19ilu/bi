@@ -37,9 +37,11 @@ _start:
 	# r8 : source code
 	# r9 : number of tokens created
 	# r10: pointer to last token created
+	# r11: current number of loops opened ('[')
 	popq	%r8
 	xorq	%r9, %r9
 	xorq	%r10, %r10
+	xorq	%r11, %r11
 .loop:
 	movzbl	(%r8), %edi
 	cmpb	$0, %dil
@@ -56,6 +58,10 @@ _start:
 	je	.accumulative
 	cmpb	$'>', %dil
 	je	.accumulative
+	cmpb	$'[', %dil
+	je	.opening
+	cmpb	$']', %dil
+	je	.closing
 	# anything else shall be taken
 	# as a comment
 	jmp	.resume
@@ -74,11 +80,29 @@ _start:
 .acu_it_is:
 	incl	8(%r10)
 	jmp	.resume
-
+.opening:
+	cmpq	__stackcap(%rip), %r11
+	je	.e_maxnested
+	SETUP	%r9d
+	leaq	__bracestack(%rip), %rax
+	movq	%r10, (%rax, %r11, 8)
+	incq	%r11
+	jmp	.resume
+.closing:	
+	decq	%r11
+	cmpq	$0, %r11
+	jl	.e_nopened
+	leaq	__bracestack(%rip), %rax
+	movq	(%rax, %r11, 8), %r12
+	movl	8(%r12), %r13d
+	movl	%r9d, 8(%r12)
+	SETUP	%r13d
+	jmp	.resume
 .resume:
 	incq	%r8
 	jmp	.loop
 .fini:
+	call	Int
 	movq	$60, %rax
 	movq	$0, %rdi
 	syscall
@@ -86,4 +110,9 @@ _start:
 	call	ErrUsage
 .e_overflow:
 	call	ErrOverFlow
+.e_maxnested:
+	call	ErrMaxNested
+.e_nopened:
+	call	ErrNoOpened
+
 
