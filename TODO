@@ -4,6 +4,7 @@
 	Loop matching                        [x]
 	Error handling during lexer          [x]
 	Error handling post lexer            [x]
-	Interpreter                          [ ]
+	Interpreter                          [x]
+	Hello world                          [x]
 	Testing                              [ ]
 
