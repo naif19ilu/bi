@@ -1,7 +1,10 @@
 
-	Usage                       [x]
-	Collect tokens              [x]
-	Error handling              [x]
-	Interpreter                 [ ]
-	Test real programs          [ ]
+	Program's usage                      [x]
+	Accumulative tokens                  [ ]
+	Loop matching                        [ ]
+	Token overflow                       [ ]
+	Loops overflow                       [ ]
+	Error handing                        [ ]
+	Interpreter                          [ ]
+	Testing                              [ ]
 

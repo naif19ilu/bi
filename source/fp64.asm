@@ -1,6 +1,6 @@
 # fp64 - fprintf function for x64
-# 28 Jun 2025
-# For better error reporting
+# 24 Jun 2025
+# This file gets all the work done
 
 .section .bss
 	.buffer:  .zero 2048
@@ -94,12 +94,12 @@
 
 .globl fp64
 # fprintf function for x64 usage:
-# 1st argument (rdi): file descriptor	8 byte
-# 2nd argument (rsi): fp_format		8 byte
-# 3th argument (rdx): first argument	8 bytes   (if any)
-# 4th argument (rcx): second argument	8 bytes   (if any)
-# 5th argument (r8 ): third argument	8 bytes   (if any)
-# 6th argument (r9 ): fourth argument	8 bytes   (if any)
+# 1st argument (rdi): file descriptor  8 byte
+# 2nd argument (rsi): fp_format        8 byte
+# 3th argument (rdx): first argument   8 bytes   (if any)
+# 4th argument (rcx): second argument  8 bytes   (if any)
+# 5th argument (r8 ): third argument   8 bytes   (if any)
+# 6th argument (r9 ): fourth argument  8 bytes   (if any)
 # if you have to print more than four variables then you will
 # have to push them into the stack in the reverse order they
 # are nedeed (see README).
