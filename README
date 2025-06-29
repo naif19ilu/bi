@@ -1,0 +1,20 @@
+
+	bi - brainfuck interpreter
+
+	This is my bf interpreter implementation in x64 for the seek
+	of learning and fun :)
+
+	The idea is rather simple, that's why this project does not contain
+	any 'IMP' file as all my other projects do; I just followed the rules
+	brainfuck has (see ref 1)
+
+	References:
+	1. Brainfuck rules:                          https://brainfuck.org/epistle.html
+	2. Where does the .bf files come from?       https://brainfuck.org/
+
+	If you do not like interpreters but rather compilers targeting x64
+	see my 'bc' project which is a brainfuck compiler ;)
+
+	naif19te
+	Jun 29 2025
+
