@@ -18,3 +18,7 @@ ErrUsage:
 	movq	.usage_len(%rip), %rdx
 	syscall
 	EXIT	$0
+
+.globl ErrOverFlow
+ErrOverFlow:
+	EXIT	$1
