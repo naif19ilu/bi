@@ -5,6 +5,7 @@
 .section .data
 	.numberline: .long 1
 	.offset:     .long 0
+	.noloops:    .quad 0
 
 .section .text
 
@@ -64,6 +65,7 @@ _start:
 	je	.right_one
 	cmpb	$'\n', %dil
 	je	.newline
+	# anything else shall be taken as a comment
 	jmp	.resume
 .acumu:
 	cmpq	$0, %r9
@@ -71,6 +73,13 @@ _start:
 	SETOK	$1
 	jmp	.resume
 .acu_may:
+ 	# Whenever we found a token followed by more
+	# tokens of the same type, we're going to only
+	# use one chunk in TokenStream and increase the
+	# number of reps for that token
+	# example: +++
+	# this would make room for a single token of kind +
+	# but the number of reps would be 3
 	movq	12(%r10), %rax
 	movzbl	(%rax), %eax
 	cmpb	%dil, %al
@@ -81,12 +90,35 @@ _start:
 	incl	0(%r10)
 	jmp	.resume
 .left_one:
-
-
+ 	# making sure there's room for one more
+	movq	(.noloops), %r15
+	cmpq	MaxNestedNoLoops(%rip), %r15
+	je	.e_maxnest
+	# for tokens [ and ] the 'reps' within the structure
+	# will take a different meaning; now it will represent
+	# the position within the stream where its pair can be
+	# found
+	# we pass r9 as reps value since we want to store this token's
+	# position
+	SETOK	%r9d
+	leaq	LoopsBros(%rip), %rax
+	movq	%r10, (%rax, %r15, 8)
+	incq	(.noloops)
+	jmp	.resume
 .right_one:
-
-.ok_token:
-
+	# making sure there's at least one opened brace
+	decq	(.noloops)
+	movq	(.noloops), %r15
+	cmpq	$0, %r15
+	jl	.e_nopened
+	# Getting last brace pushed into LoopsBros
+	leaq	LoopsBros(%rip), %rax
+	movq	(%rax, %r15, 8), %r15
+	movl	0(%r15), %r13d
+	movq	%r9, %r14
+	SETOK	%r13d
+	movl	%r14d, (%r15)
+	jmp	.resume
 .newline:
 	incl	(.numberline)
 	movl	$0, (.offset)
@@ -96,13 +128,19 @@ _start:
 	incq	%r8
 	incl	(.offset)
 	jmp	.loop
-
 .fini:
-	movl	$60, %eax
-	movl	0(%r10), %edi
+	movq	%r9, %rdi
+	call	Interpreter
+	movq	$60, %rax
+	movq	$0, %rdi
 	syscall
 
 .e_usage:
 	call	UsageMsg
 .e_overflow:
 	call	OverFlow
+.e_maxnest:
+	call	MaxNestedLoops
+.e_nopened:
+	call	BraceNoOpened
+

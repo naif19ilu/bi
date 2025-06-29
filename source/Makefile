@@ -1,4 +1,4 @@
-objs = main.o error.o interpreter.o
+objs = main.o error.o interpreter.o fp64.o
 name = bi
 
 all: $(name)

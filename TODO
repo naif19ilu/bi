@@ -1,7 +1,6 @@
 
 	Usage                       [x]
-	Read file                   [ ]
-	Collect tokens              [ ]
+	Collect tokens              [x]
 	Interpreter                 [ ]
 	Error handling              [ ]
-
+	Test real programs          [ ]

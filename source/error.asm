@@ -27,3 +27,11 @@ UsageMsg:
 OverFlow:
 	EXIT	$1
 
+.globl MaxNestedLoops
+MaxNestedLoops:
+	EXIT	$2
+
+.globl BraceNoOpened
+BraceNoOpened:
+	EXIT	$3
+
