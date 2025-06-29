@@ -1,6 +1,7 @@
 
 	Usage                       [x]
 	Collect tokens              [x]
+	Error handling              [x]
 	Interpreter                 [ ]
-	Error handling              [ ]
 	Test real programs          [ ]
+

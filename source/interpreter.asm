@@ -20,8 +20,6 @@
 	.globl TokenStream
 	.globl LoopsBros
 
-	.a: .zero 8				# REMOVE
-
 .section .rodata
 	TokenStreamLength: .quad 1024
 	TokenSize:         .quad 20
@@ -30,8 +28,6 @@
 	.globl TokenSize
 	.globl TokenStreamLength
 	.globl MaxNestedNoLoops
-
-	.fmt: .string "%c :: %d\n"		# REMOVE
 
 .section .text
 
@@ -47,27 +43,13 @@ Interpreter:
 	movq	-16(%rbp), %rax
 	cmpq	%rax, -8(%rbp)
 	je	.return
-
+	# getting current token (r8)
 	movq	TokenSize(%rip), %rbx
 	mulq	%rbx
 	movq	%rax, %rbx
 	leaq	TokenStream(%rip), %rax
 	addq	%rbx, %rax
 	movq	%rax, %r8
-
-	movq	$1, %rdi
-	leaq	.fmt(%rip), %rsi
-
-	xorq	%rdx, %rdx
-	xorq	%rcx, %rcx
-
-	movq	12(%r8), %rax
-	movzbl	(%rax), %eax
-	cltq
-	movq	%rax, %rdx
-
-	movzbl	0(%r8), %ecx
-	call	fp64
 
 	incq	-16(%rbp)
 	jmp	.loop

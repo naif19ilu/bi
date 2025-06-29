@@ -3,9 +3,13 @@
 # This file handles code reading, lexing and parsing
 
 .section .data
-	.numberline: .long 1
-	.offset:     .long 0
 	.noloops:    .quad 0
+
+	numberline: .long 1
+	offset:     .long 0
+
+	.globl numberline
+	.globl offset
 
 .section .text
 
@@ -21,9 +25,9 @@
 	addq	%rbx, %rax
 	xorq	%rbx, %rbx
 	movl	\reps, (%rax)
-	movl	(.numberline), %ebx
+	movl	(numberline), %ebx
 	movl	%ebx, 4(%rax)
-	movl	(.offset), %ebx
+	movl	(offset), %ebx
 	movl	%ebx, 8(%rax)
 	movq	%r8, 12(%rax)
 	incq	%r9
@@ -120,13 +124,13 @@ _start:
 	movl	%r14d, (%r15)
 	jmp	.resume
 .newline:
-	incl	(.numberline)
-	movl	$0, (.offset)
+	incl	(numberline)
+	movl	$0, (offset)
 	incq	%r8
 	jmp	.loop
 .resume:
 	incq	%r8
-	incl	(.offset)
+	incl	(offset)
 	jmp	.loop
 .fini:
 	movq	%r9, %rdi
