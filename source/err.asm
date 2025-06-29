@@ -1,3 +1,7 @@
+# bi - encoder and decoder
+# 29 Jun 2025
+# Error handlder
+
 .section .rodata
 	.usage_msg: .string "\n\tbi:usage: bi \"$(cat filename)\"\n\n"
 	.usage_len: .quad 34

@@ -1,3 +1,7 @@
+# bi - encoder and decoder
+# 29 Jun 2025
+# Handles lexing and parsing
+
 .section .data
 	__numline: .long 1
 	__offset : .long 0

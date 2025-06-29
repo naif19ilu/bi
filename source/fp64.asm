@@ -1,6 +1,6 @@
-# fp64 - fprintf function for x64
-# 24 Jun 2025
-# This file gets all the work done
+# bi - encoder and decoder
+# 29 Jun 2025
+# For printing better errors
 
 .section .bss
 	.buffer:  .zero 2048

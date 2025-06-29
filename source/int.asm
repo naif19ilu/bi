@@ -1,3 +1,7 @@
+# bi - encoder and decoder
+# 29 Jun 2025
+# Interpreter per se
+
 .section .bss
 	# struct token {
 	#   QUAD CONTEXT;	8 B      0
