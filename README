@@ -1,19 +1,19 @@
 
 	bi - brainfuck interpreter
 
-	This is my bf interpreter implementation in x64 for the seek
-	of learning and fun :)
+	This repository holds the source code for a brainfuck interpreter
+	written in x64 assembly language, there's not too much to say
+	about it since it works as any other interpreter, just provide
+	a brainfuck file and see the magic :)
 
-	The idea is rather simple, that's why this project does not contain
-	any 'IMP' file as all my other projects do; I just followed the rules
-	brainfuck has (see ref 1)
+	If you want to try it, run the following commands in your terminal
 
-	References:
-	1. Brainfuck rules:                          https://brainfuck.org/epistle.html
-	2. Where does the .bf files come from?       https://brainfuck.org/
+	$ cd source
+	$ make
+	$ ./bi "$(cat <file>)"
 
-	If you do not like interpreters but rather compilers targeting x64
-	see my 'bc' project which is a brainfuck compiler ;)
+	You cannot pass the file directly since the program does not
+	read files, it just works with the first argument given.
 
 	naif19te
 	Jun 29 2025
